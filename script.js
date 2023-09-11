@@ -1,10 +1,23 @@
 const display = document.getElementById('dummy-display');
-const sum = document.querySelector('#equal-button');
-const reset = document.querySelector('#clr-button');
+const sum = document.querySelector('#equalbtn');
+const reset = document.querySelector('#clrbtn');
 const buttons = document.querySelectorAll('.calc-button');
 
 let total = "";
 let operatorClicked = 0;
+
+document.addEventListener("keydown", (e) => {
+    if (e.key == "." || (e.key >= 0 && e.key <= 9) || e.key == "+" || e.key == "*" || e.key == "-" || e.key == "/") {
+        e.preventDefault();
+        document.getElementById(e.key + "btn").click();
+    } else if (e.key == "Enter" || e.key == "="){
+        e.preventDefault();
+        document.getElementById("equalbtn").click();
+    } else if (e.key == "Backspace") {
+        e.preventDefault();
+        document.getElementById("bckbtn").click();
+    };
+});
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -26,10 +39,18 @@ buttons.forEach((button) => {
             display.textContent = total;
             total += " " + button.value + " ";
             operatorClicked = 1;
+            buttons.forEach((button) => {
+                button.classList.remove("highlightbtn");
+            });
+            button.classList.add("highlightbtn");
         } else if (button.value == "/" || button.value == "*" || button.value == "-" || button.value == "+") {
             total += " " + button.value + " ";
             display.textContent = "";
             operatorClicked = 1;
+            buttons.forEach((button) => {
+                button.classList.remove("highlightbtn");
+            });
+            button.classList.add("highlightbtn");
         } else {
             total += button.value;
             display.textContent += button.value;
@@ -41,12 +62,18 @@ sum.addEventListener('click', () => {
     total = calculator.operate(total);
     display.textContent = total;
     operatorClicked = 0;
+    buttons.forEach((button) => {
+        button.classList.remove("highlightbtn");
+    });
 });
 
 reset.addEventListener('click', () => {
     display.textContent = "0";
     total = "";
     operatorClicked = 0;
+    buttons.forEach((button) => {
+        button.classList.remove("highlightbtn");
+    });
 });
 
 let calculator = {

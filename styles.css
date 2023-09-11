@@ -48,11 +48,7 @@ button {
     margin-right: 7px;
 }
 
-.buttonrow4 {
-    justify-content: end;
-}
-
-.calc-button, #clr-button, #equal-button {
+.calc-button, #clrbtn, #equalbtn {
     font-size: 30px;
 }
 
@@ -66,9 +62,14 @@ button {
     background-color: rgb(53, 188, 250);
 }
 
-#clr-button, #equal-button {
+#clrbtn, #equalbtn {
     height: 60px;
     flex: 1;
     margin-bottom: 7px;
     background-color: rgb(253, 186, 60);
+}
+
+.highlightbtn {
+    opacity: 70%;
+    border: 2px solid aliceblue;
 }
