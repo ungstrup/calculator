@@ -5,7 +5,7 @@ const buttons = document.querySelectorAll('.calc-button');
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        if (display.textContent === "Don't divide by zero" || display.textContent === "Error"){
+        if (display.textContent === "Don't divide by zero" || display.textContent === "Error" || display.textContent === "0"){
             display.textContent = "";
         };
         if (button.value == "/" || button.value == "*" || button.value == "-" || button.value == "+") {
