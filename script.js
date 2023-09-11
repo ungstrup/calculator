@@ -1,3 +1,28 @@
+const display = document.getElementById('dummy-display');
+const sum = document.querySelector('#equal-button');
+const reset = document.querySelector('#clr-button');
+const buttons = document.querySelectorAll('.calc-button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (display.textContent === "Don't divide by zero" || display.textContent === "Error"){
+            display.textContent = "";
+        };
+        if (button.value == "/" || button.value == "*" || button.value == "-" || button.value == "+") {
+            display.textContent += " " + button.value + " ";
+        } else display.textContent += button.value;
+    });
+});
+
+sum.addEventListener('click', () => {
+    let calc = calculator.operate(display.textContent)
+    display.textContent = calc;
+});
+
+reset.addEventListener('click', () => {
+    display.textContent = "";
+});
+
 let calculator = {
     operators: {
         "-": (a, b) => a - b,
@@ -11,29 +36,17 @@ let calculator = {
     operate: function (str) {
         let split = str.split(" ");
         let length = split.length;
-        let num;
+        let num = str;
         for (let i = 1; i < length;){
-            console.log("this is run: " + i+1);
             let a = +split[0];
             let operator = split[1];
             let b = +split[2];
-            console.log(a, operator, b);
             if (operator === "/" && b === 0) return "Don't divide by zero";
-            if (!this.operators[operator] || isNaN(a) || isNaN(b)) return NaN;
+            if (!this.operators[operator] || isNaN(a) || isNaN(b)) return "Error";
             num = this.roundToFour(this.operators[operator](a, b));
-            console.log(num);
             split.splice(0, 3, num);
-            console.log(split);
             length = split.length;
         };
         return num;
     },
-
-}
-
-console.log(calculator.operate("12 + 16 + 12 + 2 + 3 / 0"));
-console.log(calculator.operate("12 * 16"));
-console.log(calculator.operate("12 - 16"));
-console.log(calculator.operate("12 / 13"));
-console.log(calculator.operate("12 16"));
-console.log(calculator.operate("12 / 0"));
+};
